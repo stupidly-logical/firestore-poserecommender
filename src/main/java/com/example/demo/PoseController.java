@@ -158,7 +158,7 @@ private String removePoseByName(Pose pose) {
     HttpEntity<String> entity = new HttpEntity<>(headers);
     ResponseEntity<String> resultString = restTemplate.exchange(paramString, HttpMethod.DELETE, entity, String.class);
     String result = resultString.toString();
-    System.out.println("RESULTTTTTTT: " + result);
+    System.out.println("RESULT: " + result);
     }catch(Exception e){
         System.out.println("EXCEPTION in delete" + e);
         return "searchpose";
