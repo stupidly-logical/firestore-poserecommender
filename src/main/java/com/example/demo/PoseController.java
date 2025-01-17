@@ -97,7 +97,7 @@ private static final String param_url = "projects/<<YOUR_PROJECT_ID>>/databases/
 String project = "<<YOUR_PROJECT_ID>>";
 String location = "us-central1";
 private static final String queryString = "{\"structuredQuery\":{\"select\":{\"fields\":[{\"fieldPath\":\"name\"}]},\"from\":[{\"collectionId\":\"poses\"}]}}";
-private static final String runQuery = "projects/abis-345004/databases/(default)/documents:runQuery";
+private static final String runQuery = "projects/<<YOUR_PROJECT_ID>>/databases/(default)/documents:runQuery";
 RestTemplate restTemplate = new RestTemplate();
 
 
