@@ -345,11 +345,13 @@ public String callGemini(Pose pose) {
     String generatedText = partResponse.getString("text");
     System.out.println("Generated Text: " + generatedText);
 
-    JSONObject groundingResponse = candidate.getJSONObject("groundingMetadata");
-    JSONArray chunks = groundingResponse.getJSONArray("groundingChunks");
+    
 
     List<String> poseList = new ArrayList<String>();
     List<String> urltitleList = new ArrayList<String>();
+try{
+    JSONObject groundingResponse = candidate.getJSONObject("groundingMetadata");
+    JSONArray chunks = groundingResponse.getJSONArray("groundingChunks");
     //get the object for all itens in the chunks JSONArray
     for (int i = 0; i < chunks.length(); i++) {
         JSONObject chunk = chunks.getJSONObject(i);
@@ -360,7 +362,10 @@ public String callGemini(Pose pose) {
         poseList.add(uri);
         urltitleList.add(title);
     }
-
+}catch(Exception e){
+  poseList = null;
+  urltitleList = null;
+}
     pose.setName(nameString);
     pose.setBreath(breathString);
     pose.setPosture(generatedText);
@@ -424,11 +429,14 @@ public String callGeminiCreate(Pose pose) {
 
     System.out.println("Generated Text: " + generatedText);
 
-    JSONObject groundingResponse = candidate.getJSONObject("groundingMetadata");
-    JSONArray chunks = groundingResponse.getJSONArray("groundingChunks");
+    
 
     List<String> poseList = new ArrayList<String>();
     List<String> urltitleList = new ArrayList<String>();
+    try{
+    JSONObject groundingResponse = candidate.getJSONObject("groundingMetadata");
+    JSONArray chunks = groundingResponse.getJSONArray("groundingChunks");
+     
     //get the object for all itens in the chunks JSONArray
     for (int i = 0; i < chunks.length(); i++) {
         JSONObject chunk = chunks.getJSONObject(i);
@@ -439,7 +447,10 @@ public String callGeminiCreate(Pose pose) {
         urltitleList.add(title);
         System.out.println("URI TITLE::::: " + i + ": " + uri + ": " + title);
     }
-
+}catch(Exception e){
+  poseList = null;
+  urltitleList = null;
+}
     pose.setName(nameString);
     pose.setBreath(breathString);
     pose.setPosture(generatedText);
