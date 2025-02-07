@@ -210,12 +210,22 @@ public String callPoseByIdContext(Pose pose){
                 poseTemp.setName(poseName);
                 poseTemp.setBreath(breath.get("stringValue").toString());
                 poseTemp.setPosture(posture.get("stringValue").toString());
-                GenerateImageSample imageGen = new GenerateImageSample();
-                String prompt = "Generate a cartoon performing the following Yoga pose: " + posture.get("stringValue").toString();
-                String base64 = imageGen.generateImage(project, location, prompt);
-                poseTemp.setBase64("data:image/jpg;base64,"  + base64);
-                String base64Audio = generateAudio(posture.get("stringValue").toString());
-                poseTemp.setBase64Audio("data:audio/mp3;base64," + base64Audio);
+                try{
+                    GenerateImageSample imageGen = new GenerateImageSample();
+                    String prompt = "Generate a cartoon performing the following Yoga pose: " + posture.get("stringValue").toString();
+                    String base64 = imageGen.generateImage(project, location, prompt);
+                    poseTemp.setBase64("data:image/jpg;base64,"  + base64);
+                }catch(Exception e){
+                    System.out.println("No image generated!");
+                    poseTemp.setBase64(null);
+                }
+                try{
+                    String base64Audio = generateAudio(posture.get("stringValue").toString());
+                    poseTemp.setBase64Audio("data:audio/mp3;base64," + base64Audio);
+                } catch(Exception e){
+                    System.out.println("No audio generated!");
+                    poseTemp.setBase64Audio(null);
+                }
                 System.out.println("POSE: " + poseTemp.getName() + " : " + poseTemp.getBreath() + " : " + poseTemp.getPosture());
                 posesList.add(poseTemp);
             }
